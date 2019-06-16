@@ -4,6 +4,7 @@ var RowNum = 70;
 var ColNum = 44;
 var World = document.getElementById("world");
 var Cells = [];
+var newCells = [];
 var WorldState = true;
 var Setup = true;
 
