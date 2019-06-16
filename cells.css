@@ -1,0 +1,58 @@
+
+body{
+	font-family:Abel;
+	text-align:center;
+}
+
+.Title{
+	position:absolute;
+	font-size:10vh;
+	width:100%;
+	
+}
+
+.Box{
+	background-color: transparent;
+	z-index:10;
+	position:absolute;
+	margin-top:12vh;
+	margin-left:15vw;
+	width:70vw;
+	height:44vw;
+	border-style:solid;
+	overflow:hidden;
+}
+
+.Menu{
+	background-color: transparent;
+	z-index:10;
+	position:absolute;
+	margin-top:85vh;
+	margin-left:15vw;
+	width:70vw;
+	height:12vh;
+	border-style:solid;
+	overflow:hidden;
+}
+
+.Cell{
+	background-color:white;
+	position:absolute;
+	width:1vw;
+	height:1vw;
+	transition:.3s;
+}
+
+#cell1{
+	margin-left:1vw;
+}
+
+#cell2{
+
+}
+
+.Cell:hover{
+	background-color:grey;
+	opacity:.5;
+	transition:.3s;
+}
