@@ -21,23 +21,49 @@ function Posn(x, y) {
 
 //Cell object constructor
 /*
+* index: index within Cells array
+* id: id of cell in html based on coordinate
 * posn: posn object with the x and y coordinates of the cell
 * state: whether the cell is considered on or off
 */
-function Cell(posn, state, size) {
+function Cell(index, id, posn, state) {
+	this.id = id;
 	this.posn = posn;
-	this.state = false;
+	this.state = state;
 }
 
 
 //Fills the Cells array with new cells based on the number of rows and colums, 
 //then adds these cells as divs with unique ids to the world div.
-function Setup() {
+function Start() {
 	Setup = false;
+	var index = 0;
 
-	for(var i=0; i<ColNum; i++){
-		for(var j=0; i<RowNum) {
-			//posn=
+	for(var i=0; i<RowNum; i++){
+		for(var j=0; j<ColNum; j++){
+
+			//create posn object
+			posn = new Posn(i, j);
+
+			//add cell to cells array
+			Cells[index] = new Cell(index,"c"+j+"x"+i, posn, false);
+
+
+			//create new div for the cell
+			var newCell=document.createElement("div");
+			newCell.setAttribute("class", "Cell");
+			newCell.setAttribute("id", Cells[index].id);
+
+
+			//appends new cell div to world
+			document.getElementById("world").appendChild(newCell);
+
+
+			//sets format of new cell
+			document.getElementById(Cells[index].id).style.marginTop = Cells[index].posn.y +"vw";
+			document.getElementById(Cells[index].id).style.marginLeft = Cells[index].posn.x +"vw";
+
+			index++;
 		}
 	}
 }
@@ -52,11 +78,12 @@ function update(){
 setInterval( function(){	
 
 	//Sets up the view based on the screen size
-	if (Setup)
-		Setup();
+	if (Setup){
+		Start();
+	}
 
-	for(var i=0; i<ColNum; i++){
-		for(var j=0; i<RowNum) {
+	for(var i=0; i<RowNum; i++){
+		for(var j=0; j<ColNum; j++) {
 
 		update(i);
 		}

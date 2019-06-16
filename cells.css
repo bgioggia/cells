@@ -40,19 +40,9 @@ body{
 	position:absolute;
 	width:1vw;
 	height:1vw;
-	transition:.3s;
-}
-
-#cell1{
-	margin-left:1vw;
-}
-
-#cell2{
-
 }
 
 .Cell:hover{
 	background-color:grey;
 	opacity:.5;
-	transition:.3s;
 }
