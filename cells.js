@@ -49,14 +49,37 @@ function Start() {
 	Setup = false;
 	var index = 0;
 
-	for(var i=0; i<RowNum; i++){
-		for(var j=0; j<ColNum; j++){
+	for(var i=0; i<ColNum; i++){
+		for(var j=0; j<RowNum; j++){
 
 			//create posn object
 			posn = new Posn(i, j);
 
+			//create cell reference variables to catch borders
+			//red
+			if(posn.y==0)
+				var top = NaN;
+			else
+				var top = ColNum + index;
+			//orange
+			if(posn.y==ColNum)
+				var top= NaN;
+			else
+				var bottom = index - ColNum;
+			//green
+			if(posn.x==0)
+				var left = NaN;
+			else
+				var left = index + 1;
+			//blue
+			if(posn.x==RowNum)
+				var right = NaN;
+			else
+				var right = index - 1;		
+
+
 			//add cell to cells array
-			Cells[index] = new Cell(index,"c"+j+"x"+i, posn, false);
+			Cells[index] = new Cell(top, bottom, left, right, index,"c"+j+"x"+i, posn, false);
 
 
 			//create new div for the cell
@@ -73,8 +96,8 @@ function Start() {
 
 
 			//sets format of new cell
-			document.getElementById(Cells[index].id).style.marginTop = Cells[index].posn.y +"vw";
-			document.getElementById(Cells[index].id).style.marginLeft = Cells[index].posn.x +"vw";
+			document.getElementById(Cells[index].id).style.marginTop = Cells[index].posn.x +"vw";
+			document.getElementById(Cells[index].id).style.marginLeft = Cells[index].posn.y +"vw";
 
 			//incrememnt index variable (used to determine array index)
 			index++;
@@ -84,12 +107,23 @@ function Start() {
 
 //changes the cell to the opposite of its current state.
 function changeState(i) {
+	console.log("X:" + Cells[i].posn.x);
+	console.log("Y:" + Cells[i].posn.y);
+	console.log("index:" + Cells[i].index);
 	if(Cells[i].state) {
 		document.getElementById(Cells[i].id).style.backgroundColor = "white";
 		Cells[i].state = false;
 	}
 	else {
 		document.getElementById(Cells[i].id).style.backgroundColor = "black";
+		if(!isNaN(Cells[i].top))
+			document.getElementById(Cells[Cells[i].top].id).style.backgroundColor = "red";
+		if(!isNaN(Cells[i].bottom))
+			document.getElementById(Cells[Cells[i].bottom].id).style.backgroundColor = "orange";
+		if(!isNaN(Cells[i].left))
+			document.getElementById(Cells[Cells[i].left].id).style.backgroundColor = "blue";
+		if(!isNaN(Cells[i].right)) 
+			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "green";
 		Cells[i].state = true;
 	}
 }
