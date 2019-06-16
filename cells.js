@@ -1,7 +1,7 @@
 
 //Variables
-var RowNum = 70;
-var ColNum = 44;
+var ColNum = 70;
+var RowNum = 44;
 var World = document.getElementById("world");
 var Cells = [];
 var newCells = [];
@@ -49,8 +49,8 @@ function Start() {
 	Setup = false;
 	var index = 0;
 
-	for(var i=0; i<ColNum; i++){
-		for(var j=0; j<RowNum; j++){
+	for(var i=0; i<RowNum; i++){
+		for(var j=0; j<ColNum; j++){
 
 			//create posn object
 			posn = new Posn(j, i);
@@ -60,19 +60,19 @@ function Start() {
 			if(posn.y==0)
 				var top = NaN;
 			else
-				var top = ColNum + index;
+				var top = index - ColNum;
 			//orange
-			if(posn.y==ColNum - 1)
-				var top= NaN;
+			if(posn.y==RowNum - 1)
+				var bottom= NaN;
 			else
-				var bottom = index - ColNum;
+				var bottom = index + ColNum;
 			//green
 			if(posn.x==0)
 				var left = NaN;
 			else
 				var left = index - 1;
 			//blue
-			if(posn.x==RowNum - 1)
+			if(posn.x==ColNum - 1)
 				var right = NaN;
 			else
 				var right = index + 1;		
@@ -121,9 +121,9 @@ function changeState(i) {
 		if(!isNaN(Cells[i].bottom))
 			document.getElementById(Cells[Cells[i].bottom].id).style.backgroundColor = "orange";
 		if(!isNaN(Cells[i].left))
-			document.getElementById(Cells[Cells[i].left].id).style.backgroundColor = "blue";
+			document.getElementById(Cells[Cells[i].left].id).style.backgroundColor = "green";
 		if(!isNaN(Cells[i].right)) 
-			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "green";
+			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "blue";
 		Cells[i].state = true;
 	}
 }
@@ -141,7 +141,7 @@ setInterval( function(){
 		Start();
 	}
 
-	for(var i=0; i< RowNum*ColNum; i++){
+	for(var i=0; i< ColNum*RowNum; i++){
 		//changeState(i);
 	}
 },1000/2);
