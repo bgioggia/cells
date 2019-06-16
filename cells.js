@@ -27,6 +27,7 @@ function Posn(x, y) {
 * state: whether the cell is considered on or off
 */
 function Cell(index, id, posn, state) {
+	this.index=index;
 	this.id = id;
 	this.posn = posn;
 	this.state = state;
@@ -51,8 +52,11 @@ function Start() {
 
 			//create new div for the cell
 			var newCell=document.createElement("div");
+
+			//set attributes of cell
 			newCell.setAttribute("class", "Cell");
 			newCell.setAttribute("id", Cells[index].id);
+			newCell.setAttribute("onclick", "changeState("+index+")");
 
 
 			//appends new cell div to world
@@ -63,11 +67,23 @@ function Start() {
 			document.getElementById(Cells[index].id).style.marginTop = Cells[index].posn.y +"vw";
 			document.getElementById(Cells[index].id).style.marginLeft = Cells[index].posn.x +"vw";
 
+			//incrememnt index variable (used to determine array index)
 			index++;
 		}
 	}
 }
 
+//changes the cell to the opposite of its current state.
+function changeState(i) {
+	if(Cells[i].state) {
+		document.getElementById(Cells[i].id).style.backgroundColor = "white";
+		Cells[i].state = false;
+	}
+	else {
+		document.getElementById(Cells[i].id).style.backgroundColor = "black";
+		Cells[i].state = true;
+	}
+}
 //updates the cells based on the set rules.
 function update(){
 
@@ -83,10 +99,7 @@ setInterval( function(){
 	}
 
 	for(var i=0; i<RowNum; i++){
-		for(var j=0; j<ColNum; j++) {
-
 		update(i);
-		}
 	}
 },1000/2);
 
