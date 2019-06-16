@@ -21,12 +21,20 @@ function Posn(x, y) {
 
 //Cell object constructor
 /*
+* top: index of cell above this one
+* bottom: index of cell below this one
+* left: index of cell to the left of thisone
+* right: index of cell to the right of this one
 * index: index within Cells array
 * id: id of cell in html based on coordinate
 * posn: posn object with the x and y coordinates of the cell
 * state: whether the cell is considered on or off
 */
-function Cell(index, id, posn, state) {
+function Cell(top, bottom, left, right, index, id, posn, state) {
+	this.top = top;
+	this.bottom = bottom;
+	this.left =left;
+	this.right = right;
 	this.index=index;
 	this.id = id;
 	this.posn = posn;
@@ -98,8 +106,8 @@ setInterval( function(){
 		Start();
 	}
 
-	for(var i=0; i<RowNum; i++){
-		update(i);
+	for(var i=0; i< RowNum*ColNum; i++){
+		//changeState(i);
 	}
 },1000/2);
 
