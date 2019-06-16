@@ -53,7 +53,7 @@ function Start() {
 		for(var j=0; j<RowNum; j++){
 
 			//create posn object
-			posn = new Posn(i, j);
+			posn = new Posn(j, i);
 
 			//create cell reference variables to catch borders
 			//red
@@ -62,7 +62,7 @@ function Start() {
 			else
 				var top = ColNum + index;
 			//orange
-			if(posn.y==ColNum)
+			if(posn.y==ColNum - 1)
 				var top= NaN;
 			else
 				var bottom = index - ColNum;
@@ -70,12 +70,12 @@ function Start() {
 			if(posn.x==0)
 				var left = NaN;
 			else
-				var left = index + 1;
+				var left = index - 1;
 			//blue
-			if(posn.x==RowNum)
+			if(posn.x==RowNum - 1)
 				var right = NaN;
 			else
-				var right = index - 1;		
+				var right = index + 1;		
 
 
 			//add cell to cells array
@@ -96,8 +96,8 @@ function Start() {
 
 
 			//sets format of new cell
-			document.getElementById(Cells[index].id).style.marginTop = Cells[index].posn.x +"vw";
-			document.getElementById(Cells[index].id).style.marginLeft = Cells[index].posn.y +"vw";
+			document.getElementById(Cells[index].id).style.marginTop = Cells[index].posn.y +"vw";
+			document.getElementById(Cells[index].id).style.marginLeft = Cells[index].posn.x +"vw";
 
 			//incrememnt index variable (used to determine array index)
 			index++;
