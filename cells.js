@@ -5,7 +5,7 @@ var RowNum = 44;
 var World = document.getElementById("world");
 var Cells = [];
 var newCells = [];
-var WorldState = true;
+var WorldState = false;
 var Setup = true;
 
 
@@ -116,20 +116,32 @@ function changeState(i) {
 	}
 	else {
 		document.getElementById(Cells[i].id).style.backgroundColor = "black";
-		if(!isNaN(Cells[i].top))
+
+		/*if(!isNaN(Cells[i].top))
 			document.getElementById(Cells[Cells[i].top].id).style.backgroundColor = "red";
 		if(!isNaN(Cells[i].bottom))
 			document.getElementById(Cells[Cells[i].bottom].id).style.backgroundColor = "orange";
 		if(!isNaN(Cells[i].left))
 			document.getElementById(Cells[Cells[i].left].id).style.backgroundColor = "green";
 		if(!isNaN(Cells[i].right)) 
-			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "blue";
+			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "blue";*/
+
 		Cells[i].state = true;
 	}
 }
 //updates the cells based on the set rules.
-function update(){
+function update(index){
+	if(WorldState) {
 
+		
+
+	}
+
+}
+
+//toggles the worldState
+function toggle() {
+	WorldState = !WorldState;
 }
 
 
@@ -142,7 +154,7 @@ setInterval( function(){
 	}
 
 	for(var i=0; i< ColNum*RowNum; i++){
-		//changeState(i);
+		update(i);
 	}
 },1000/2);
 

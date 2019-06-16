@@ -45,3 +45,12 @@ body{
 .Cell:hover{
 	background-color:grey;
 }
+
+#toggle{
+	position:absolute;
+	width:4vw;
+	height:4vw;
+	margin-top:50vh;
+	margin-left:90vw;
+	background-color:red;
+}
