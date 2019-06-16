@@ -1,7 +1,7 @@
 
 //Variables
-var RowNum = 70;
-var ColNum = 44;
+var ColNum = 70;
+var RowNum = 44;
 var World = document.getElementById("world");
 var Cells = [];
 var newCells = [];
@@ -53,10 +53,33 @@ function Start() {
 		for(var j=0; j<ColNum; j++){
 
 			//create posn object
-			posn = new Posn(i, j);
+			posn = new Posn(j, i);
+
+			//create cell reference variables to catch borders
+			//red
+			if(posn.y==0)
+				var top = NaN;
+			else
+				var top = index - ColNum;
+			//orange
+			if(posn.y==RowNum - 1)
+				var bottom= NaN;
+			else
+				var bottom = index + ColNum;
+			//green
+			if(posn.x==0)
+				var left = NaN;
+			else
+				var left = index - 1;
+			//blue
+			if(posn.x==ColNum - 1)
+				var right = NaN;
+			else
+				var right = index + 1;		
+
 
 			//add cell to cells array
-			Cells[index] = new Cell(index,"c"+j+"x"+i, posn, false);
+			Cells[index] = new Cell(top, bottom, left, right, index,"c"+j+"x"+i, posn, false);
 
 
 			//create new div for the cell
@@ -84,12 +107,23 @@ function Start() {
 
 //changes the cell to the opposite of its current state.
 function changeState(i) {
+	console.log("X:" + Cells[i].posn.x);
+	console.log("Y:" + Cells[i].posn.y);
+	console.log("index:" + Cells[i].index);
 	if(Cells[i].state) {
 		document.getElementById(Cells[i].id).style.backgroundColor = "white";
 		Cells[i].state = false;
 	}
 	else {
 		document.getElementById(Cells[i].id).style.backgroundColor = "black";
+		if(!isNaN(Cells[i].top))
+			document.getElementById(Cells[Cells[i].top].id).style.backgroundColor = "red";
+		if(!isNaN(Cells[i].bottom))
+			document.getElementById(Cells[Cells[i].bottom].id).style.backgroundColor = "orange";
+		if(!isNaN(Cells[i].left))
+			document.getElementById(Cells[Cells[i].left].id).style.backgroundColor = "green";
+		if(!isNaN(Cells[i].right)) 
+			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "blue";
 		Cells[i].state = true;
 	}
 }
@@ -107,7 +141,7 @@ setInterval( function(){
 		Start();
 	}
 
-	for(var i=0; i< RowNum*ColNum; i++){
+	for(var i=0; i< ColNum*RowNum; i++){
 		//changeState(i);
 	}
 },1000/2);
