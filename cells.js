@@ -7,6 +7,7 @@ var Cells = [];
 var newCells = [];
 var WorldState = false;
 var Setup = true;
+var WorldStyle = 0;
 
 
 //Posn object constructor
@@ -129,14 +130,36 @@ function changeState(i) {
 		Cells[i].state = true;
 	}
 }
+
+//changes the cell to the opposite of its current state.
+function changeStateMirror(i) {
+	console.log("X:" + Cells[i].posn.x);
+	console.log("Y:" + Cells[i].posn.y);
+	console.log("index:" + Cells[i].index);
+	if(Cells[i].state) {
+		document.getElementById(Cells[i].id).style.backgroundColor = "white";
+		newCells[i].state = false;
+	}
+	else {
+		document.getElementById(Cells[i].id).style.backgroundColor = "black";
+		newCells[i].state = true;
+	}
+}
+
+
 //updates the cells based on the set rules.
 function update(index){
 	if(WorldState) {
 
-		
+		switch(WorldStyle){
+			case 0:
+			basicTick(index);
+			break;
 
+			default: 
+			break;	
+		}
 	}
-
 }
 
 //toggles the worldState
@@ -144,6 +167,31 @@ function toggle() {
 	WorldState = !WorldState;
 }
 
+
+//basic tick test
+function basicTick(i){
+	var cell = Cells[i];
+	var neighbors = 0;
+	if(!isNaN(cell.top) && Cells[cell.top].state == true)
+		neighbors++;
+	
+	if(!isNaN(cell.bottom) && Cells[cell.bottom].state == true)
+		neighbors++;	
+	
+	if(!isNaN(cell.left) && Cells[cell.left].state == true)
+		neighbors++;
+	
+	if(!isNaN(cell.right) && Cells[cell.right].state == true)
+		neighbors++;
+	
+	//if(Cells[i].state && neighbors != 0);
+	if(neighbors == 3 && cell.state)
+		changeStateMirror(i);
+	else if(neighbors == 4 && !cell.state)
+		changeStateMirror(i);
+	else if(neighbors == 2 && !cell.state)
+		changeStateMirror(i);
+}
 
 //Calls update function on each element of the Cells Array 2 times per second
 setInterval( function(){	
@@ -153,9 +201,11 @@ setInterval( function(){
 		Start();
 	}
 
+	newCells=Cells;
 	for(var i=0; i< ColNum*RowNum; i++){
 		update(i);
 	}
+	Cells=newCells;
 },1000/2);
 
 
