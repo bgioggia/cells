@@ -27,10 +27,10 @@ body{
 	background-color: transparent;
 	z-index:10;
 	position:absolute;
-	margin-top:85vh;
-	margin-left:15vw;
-	width:70vw;
-	height:12vh;
+	margin-top:12vh;
+	margin-left:88vw;
+	width:8vw;
+	height:44vw;
 	border-style:solid;
 	overflow:hidden;
 }
@@ -47,10 +47,27 @@ body{
 }
 
 #toggle{
+	border-radius:10%;
+	opacity:.7;
+	z-index: 11;
 	position:absolute;
-	width:4vw;
-	height:4vw;
-	margin-top:50vh;
-	margin-left:90vw;
+	width:6vw;
+	height:6vw;
+	margin-top:15vh;
+	margin-left:89.3vw;
 	background-color:red;
 }
+#toggle:hover{
+	opacity:1;
+}
+
+#zero{
+
+}
+
+#one{
+
+}
+
+
+

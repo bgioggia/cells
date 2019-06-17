@@ -9,9 +9,12 @@ var WorldState = false;
 var Setup = true;
 var WorldStyle = 2;
 
+//color that toggle will be changed to next
+var toggleColor = "green";
+
 //rules variables
 var state0 = 0;
-var state1 = 0;
+var state1 = 1;
 var state2 = 0;
 var state3 = 0;
 var state4 = 0;
@@ -200,6 +203,11 @@ function update(i){
 //toggles the worldState
 function toggle() {
 	WorldState = !WorldState;
+	document.getElementById("toggle").style.backgroundColor = toggleColor;
+	if(toggleColor == "green")
+		toggleColor = "red";
+	else
+		toggleColor = "green";
 }
 
 
