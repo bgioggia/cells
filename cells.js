@@ -7,14 +7,13 @@ var Cells = [];
 var newCells = [];
 var WorldState = false;
 var Setup = true;
-var WorldStyle = 2;
 
 //color that toggle will be changed to next
 var toggleColor = "green";
 
 //rules variables
 var state0 = 0;
-var state1 = 1;
+var state1 = 0;
 var state2 = 0;
 var state3 = 0;
 var state4 = 0;
@@ -156,6 +155,128 @@ function changeStateMirror(i, cell) {
 	console.log("index:" + Cells[i].index);*/
 }
 
+function updateRules(change) {
+	switch(change){
+		//NO NEIGHBOR CASES
+		case "on0":
+			if(state0 == 0 || state0 == 2){
+				state0 = state0 + 1;
+				document.getElementById("on0").style.opacity = "1";
+			}
+
+			else{
+				state0 = state0 -1;
+				document.getElementById("on0").style.opacity = ".7";
+			}
+			break;
+
+		case "off0":
+			if(state0 == 0 || state0 == 1){
+				state0 = state0 + 2;
+				document.getElementById("off0").style.opacity = "1";
+			}
+			else{
+				state0 = state0 - 2;
+				document.getElementById("off0").style.opacity = ".7";
+			}
+			break;
+
+		//ONE NEIGHBOR CASES	
+		case "on1":
+			if(state1 == 0 || state1 == 2){
+				state1 = state1 + 1;
+				document.getElementById("on1").style.opacity = "1";
+			}
+			else{
+				state1 = state1 -1;
+				document.getElementById("on1").style.opacity = ".7";
+			}
+			break;
+
+		case "off1":
+			if(state1 == 0 || state1 == 1){
+				state1 = state1 + 2;
+				document.getElementById("off1").style.opacity = "1";
+			}
+			else{
+				state1 = state1 - 2;
+				document.getElementById("off1").style.opacity = ".7";
+			}
+			break;
+
+		//TWO NEIGHBOR CASES
+		case "on2":
+			if(state2 == 0 || state0 == 2){
+				state2 = state2 + 1;
+				document.getElementById("on2").style.opacity = "1";
+			}
+			else{
+				state2 = state2 -1;
+				document.getElementById("on2").style.opacity = ".7";
+			}
+			break;
+
+		case "off2":
+			if(state2 == 0 || state2 == 1){
+				state2 = state2 + 2;
+				document.getElementById("off2").style.opacity = "1";
+			}
+			else{
+				state2 = state2 - 2;
+				document.getElementById("off2").style.opacity = ".7";
+			}
+			break;
+
+		//THREE NEIGHBOR CASES	
+		case "on3":
+			if(state3 == 0 || state3 == 2){
+				state3 = state3 + 1;
+				document.getElementById("on3").style.opacity = "1";
+			}
+			else{
+				state3 = state3 -1;
+				document.getElementById("on3").style.opacity = ".7";
+			}
+			break;
+
+		case "off3":
+			if(state3 == 0 || state3 == 1){
+				state3 = state3 + 2;
+				document.getElementById("off3").style.opacity = "1";
+			}
+			else{
+				state3 = state3 - 2;
+				document.getElementById("off3").style.opacity = ".7";
+			}
+			break;
+
+		//FOUR NEIGHBOR CASES	
+		case "on4":
+			if(state4 == 0 || state4 == 2){
+				state4 = state4 + 1;
+				document.getElementById("on4").style.opacity = "1";
+			}
+			else{
+				state4 = state4 -1;
+				document.getElementById("on4").style.opacity = ".7";
+			}
+			break;
+
+		case "off4":
+			if(state4 == 0 || state4 == 1){
+				state4 = state4 + 2;
+				document.getElementById("off4").style.opacity = "1";
+			}
+			else{
+				state4 = state4 - 2;
+				document.getElementById("off4").style.opacity = ".7";
+			}
+			break;
+
+		default:
+			break;
+	}
+}
 
 //updates the cells based on the set rules.
 function update(i){
@@ -236,8 +357,9 @@ function sweep(i) {
 }
 
 //Calls update function on each element of the Cells Array 2 times per second
-setInterval( function(){	
-
+setInterval( function(){
+console.log("STATE0: " + state0);
+console.log("STATE1: " + state1)
 	//Sets up the view based on the screen size
 	if (Setup){
 		Start();
