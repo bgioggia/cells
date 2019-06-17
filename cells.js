@@ -7,7 +7,7 @@ var Cells = [];
 var newCells = [];
 var WorldState = false;
 var Setup = true;
-var WorldStyle = 0;
+var WorldStyle = 1;
 
 
 //Posn object constructor
@@ -131,18 +131,18 @@ function changeState(i) {
 	}
 }
 
-//changes the cell to the opposite of its current state.
-function changeStateMirror(i) {
+//changes the cell to the opposite of its current state, without interfering with subsequent cells.
+function changeStateMirror(i, cell) {
 	console.log("X:" + Cells[i].posn.x);
 	console.log("Y:" + Cells[i].posn.y);
 	console.log("index:" + Cells[i].index);
 	if(Cells[i].state) {
 		document.getElementById(Cells[i].id).style.backgroundColor = "white";
-		newCells[i].state = false;
+		newCells[i].state = new Cell(cell.top, cell.bottom, cell.left, cell.right, cell.index, cell.id, cell.posn, false);
 	}
 	else {
 		document.getElementById(Cells[i].id).style.backgroundColor = "black";
-		newCells[i].state = true;
+		newCells[i].state = new Cell(cell.top, cell.bottom, cell.left, cell.right, cell.index, cell.id, cell.posn, true);
 	}
 }
 
@@ -154,6 +154,10 @@ function update(index){
 		switch(WorldStyle){
 			case 0:
 			basicTick(index);
+			break;
+
+			case 1:
+			tick1(index);
 			break;
 
 			default: 
@@ -171,7 +175,38 @@ function toggle() {
 //basic tick test
 function basicTick(i){
 	var cell = Cells[i];
+	var neighbors = countNeighbors(i);
+
+	//if(Cells[i].state && neighbors != 0);
+	if(neighbors == 3 && cell.state)
+		changeStateMirror(i, cell);
+	else if(neighbors == 4 && !cell.state)
+		changeStateMirror(i);
+	else if(neighbors == 2 && !cell.state)
+		changeStateMirror(i, cell);
+	
+}
+
+//inverse basic tick
+function tick1(i){
+	var cell = Cells[i];
+	var neighbors = countNeighbors(i, cell);
+
+	//if(Cells[i].state && neighbors != 0);
+	//if(neighbors == 3 && !cell.state)
+		//changeStateMirror(i);
+	 if(neighbors == 0 && !cell.state)
+		changeStateMirror(i, cell);
+	//else if(neighbors == 4 && cell.state)
+		//changeStateMirror(i);
+	//else if(neighbors == 2 && cell.state)
+		//changeStateMirror(i);
+}
+
+//counts how many neighbors a given cell has and returns the value
+function countNeighbors(i) {
 	var neighbors = 0;
+	var cell = Cells[i];
 	if(!isNaN(cell.top) && Cells[cell.top].state == true)
 		neighbors++;
 	
@@ -183,15 +218,9 @@ function basicTick(i){
 	
 	if(!isNaN(cell.right) && Cells[cell.right].state == true)
 		neighbors++;
-	
-	//if(Cells[i].state && neighbors != 0);
-	if(neighbors == 3 && cell.state)
-		changeStateMirror(i);
-	else if(neighbors == 4 && !cell.state)
-		changeStateMirror(i);
-	else if(neighbors == 2 && !cell.state)
-		changeStateMirror(i);
+	return neighbors;
 }
+
 
 //Calls update function on each element of the Cells Array 2 times per second
 setInterval( function(){	
@@ -200,8 +229,7 @@ setInterval( function(){
 	if (Setup){
 		Start();
 	}
-
-	newCells=Cells;
+	newCells=[...Cells];
 	for(var i=0; i< ColNum*RowNum; i++){
 		update(i);
 	}
