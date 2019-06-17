@@ -9,6 +9,13 @@ var WorldState = false;
 var Setup = true;
 var WorldStyle = 2;
 
+//rules variables
+var state0 = 0;
+var state1 = 0;
+var state2 = 0;
+var state3 = 0;
+var state4 = 0;
+
 
 //Posn object constructor
 /*
@@ -148,26 +155,45 @@ function changeStateMirror(i, cell) {
 
 
 //updates the cells based on the set rules.
-function update(index){
+function update(i){
 	if(WorldState) {
+	var cell = Cells[i];
+	var neighbors = countNeighbors(i);
 
-		switch(WorldStyle){
-			case 0:
-			basicTick(index);
-			break;
+	//0 NEIGHBORS
+	if((state0 == 1 || state0 == 3) && neighbors == 0 && !cell.state)
+		changeStateMirror(i, cell);
 
-			case 1:
-			tick1(index);
-			break;
+	else if((state0 == 2 || state0 == 3) && neighbors == 0 && cell.state)
+		changeStateMirror(i, cell);
 
-			case 2:
-			growTick(index);
-			break;
+	//1 NEIGHBORS
+	else if((state1 == 1 || state0 == 3) && neighbors == 1 && !cell.state)
+		changeStateMirror(i, cell);
 
+	else if((state1 == 2 || state0 == 3) && neighbors == 1 && cell.state)
+		changeStateMirror(i, cell);
 
-			default: 
-			break;	
-		}
+	//2 NEIGHBORS
+	else if((state2 == 1 || state0 == 3) && neighbors == 2 && !cell.state)
+		changeStateMirror(i, cell);
+
+	else if((state2 == 2 || state0 == 3) && neighbors == 2 && cell.state)
+		changeStateMirror(i, cell);
+	
+	//3 NEIGHBORS
+	else if((state3 == 1 || state3 == 3) && neighbors == 3 && !cell.state)
+		changeStateMirror(i, cell);
+
+	else if((state3 == 2 || state3 == 3) && neighbors == 3 && cell.state)
+		changeStateMirror(i, cell);
+	
+	//4 NEIGHBORS
+	else if((state4 == 1 || state0 == 3) && neighbors == 4 && !cell.state)
+		changeStateMirror(i, cell);
+
+	else if((state4 == 2 || state0 == 3) && neighbors == 4 && cell.state)
+		changeStateMirror(i, cell);
 	}
 }
 
@@ -176,39 +202,6 @@ function toggle() {
 	WorldState = !WorldState;
 }
 
-
-//basic tick test
-function basicTick(i){
-	var cell = Cells[i];
-	var neighbors = countNeighbors(i);
-
-	//if(Cells[i].state && neighbors != 0);
-	if(neighbors == 3 && cell.state)
-		changeStateMirror(i, cell);
-	else if(neighbors == 4 && !cell.state)
-		changeStateMirror(i, cell);
-	else if(neighbors == 2 && !cell.state)
-		changeStateMirror(i, cell);
-}
-
-//grows cells outwards
-function growTick(i){
-	var cell = newCells[i];
-	var neighbors = countNeighbors(i);
-	console.log("Before: " + cell.state);
-	if(neighbors == 1 && !cell.state)
-		changeStateMirror(i, cell);
-	console.log("After: " + cell.state);
-}
-
-//inverse basic tick
-function tick1(i){
-	var cell = Cells[i];
-	var neighbors = countNeighbors(i, cell);
-
-	 if(neighbors == 0 && !cell.state)
-		changeStateMirror(i, cell);
-}
 
 //counts how many neighbors a given cell has and returns the value
 function countNeighbors(i) {
@@ -231,7 +224,6 @@ function countNeighbors(i) {
 function sweep(i) {
 	if (WorldState && (newCells[i].state != Cells[i].state)) {
 		changeState(i);
-		console.log("AFDJSAKLFEJWQIOFJDSKLA");
 	}
 }
 
