@@ -7,7 +7,7 @@ var Cells = [];
 var newCells = [];
 var WorldState = false;
 var Setup = true;
-var WorldStyle = 1;
+var WorldStyle = 2;
 
 
 //Posn object constructor
@@ -81,6 +81,7 @@ function Start() {
 
 			//add cell to cells array
 			Cells[index] = new Cell(top, bottom, left, right, index,"c"+j+"x"+i, posn, false);
+			newCells[index] = new Cell(top, bottom, left, right, index,"c"+j+"x"+i, posn, false);
 
 
 			//create new div for the cell
@@ -108,15 +109,15 @@ function Start() {
 
 //changes the cell to the opposite of its current state.
 function changeState(i) {
-	console.log("X:" + Cells[i].posn.x);
-	console.log("Y:" + Cells[i].posn.y);
-	console.log("index:" + Cells[i].index);
 	if(Cells[i].state) {
 		document.getElementById(Cells[i].id).style.backgroundColor = "white";
 		Cells[i].state = false;
+		newCells[i].state = false;
 	}
 	else {
 		document.getElementById(Cells[i].id).style.backgroundColor = "black";
+		Cells[i].state = true;
+		newCells[i].state = true;
 
 		/*if(!isNaN(Cells[i].top))
 			document.getElementById(Cells[Cells[i].top].id).style.backgroundColor = "red";
@@ -126,24 +127,23 @@ function changeState(i) {
 			document.getElementById(Cells[Cells[i].left].id).style.backgroundColor = "green";
 		if(!isNaN(Cells[i].right)) 
 			document.getElementById(Cells[Cells[i].right].id).style.backgroundColor = "blue";*/
-
-		Cells[i].state = true;
 	}
 }
 
 //changes the cell to the opposite of its current state, without interfering with subsequent cells.
 function changeStateMirror(i, cell) {
-	console.log("X:" + Cells[i].posn.x);
-	console.log("Y:" + Cells[i].posn.y);
-	console.log("index:" + Cells[i].index);
-	if(Cells[i].state) {
+	if(cell.state) {
 		document.getElementById(Cells[i].id).style.backgroundColor = "white";
-		newCells[i].state = new Cell(cell.top, cell.bottom, cell.left, cell.right, cell.index, cell.id, cell.posn, false);
+		newCells[i] = new Cell(cell.top, cell.bottom, cell.left, cell.right, cell.index, cell.id, cell.posn, false);
 	}
 	else {
 		document.getElementById(Cells[i].id).style.backgroundColor = "black";
-		newCells[i].state = new Cell(cell.top, cell.bottom, cell.left, cell.right, cell.index, cell.id, cell.posn, true);
+		newCells[i] = new Cell(cell.top, cell.bottom, cell.left, cell.right, cell.index, cell.id, cell.posn, true);
 	}
+
+	/*console.log("X:" + Cells[i].posn.x);
+	console.log("Y:" + Cells[i].posn.y);
+	console.log("index:" + Cells[i].index);*/
 }
 
 
@@ -159,6 +159,11 @@ function update(index){
 			case 1:
 			tick1(index);
 			break;
+
+			case 2:
+			growTick(index);
+			break;
+
 
 			default: 
 			break;	
@@ -181,10 +186,19 @@ function basicTick(i){
 	if(neighbors == 3 && cell.state)
 		changeStateMirror(i, cell);
 	else if(neighbors == 4 && !cell.state)
-		changeStateMirror(i);
+		changeStateMirror(i, cell);
 	else if(neighbors == 2 && !cell.state)
 		changeStateMirror(i, cell);
-	
+}
+
+//grows cells outwards
+function growTick(i){
+	var cell = newCells[i];
+	var neighbors = countNeighbors(i);
+	console.log("Before: " + cell.state);
+	if(neighbors == 1 && !cell.state)
+		changeStateMirror(i, cell);
+	console.log("After: " + cell.state);
 }
 
 //inverse basic tick
@@ -192,15 +206,8 @@ function tick1(i){
 	var cell = Cells[i];
 	var neighbors = countNeighbors(i, cell);
 
-	//if(Cells[i].state && neighbors != 0);
-	//if(neighbors == 3 && !cell.state)
-		//changeStateMirror(i);
 	 if(neighbors == 0 && !cell.state)
 		changeStateMirror(i, cell);
-	//else if(neighbors == 4 && cell.state)
-		//changeStateMirror(i);
-	//else if(neighbors == 2 && cell.state)
-		//changeStateMirror(i);
 }
 
 //counts how many neighbors a given cell has and returns the value
@@ -221,6 +228,12 @@ function countNeighbors(i) {
 	return neighbors;
 }
 
+function sweep(i) {
+	if (WorldState && (newCells[i].state != Cells[i].state)) {
+		changeState(i);
+		console.log("AFDJSAKLFEJWQIOFJDSKLA");
+	}
+}
 
 //Calls update function on each element of the Cells Array 2 times per second
 setInterval( function(){	
@@ -229,12 +242,13 @@ setInterval( function(){
 	if (Setup){
 		Start();
 	}
-	newCells=[...Cells];
 	for(var i=0; i< ColNum*RowNum; i++){
 		update(i);
 	}
-	Cells=newCells;
-},1000/2);
+	for(var i=0; i< ColNum*RowNum; i++){
+		sweep(i);
+	}
+},1000/4);
 
 
 
