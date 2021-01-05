@@ -1,13 +1,39 @@
 
+a{
+	color:black;
+}
+
 body{
 	font-family:Abel;
 	text-align:center;
+	user-select: none;
 }
 
 .Title{
 	position:absolute;
-	font-size:10vh;
+	text-decoration:none;
+	font-size:3vw;
+	z-index: 100;
+	border-style:solid;
+	left:0;
+	height:8vh;
+	width:25vw;
+	margin-top:2vh;
+	margin-left:5vw;
+	border-radius:1vw;
+	opacity:.5;
+}
+
+.Title:hover{
+	opacity:1;
+}
+
+
+
+.Title1{
+	position:absolute;
 	width:100%;
+	font-size:10vh;
 	
 }
 
@@ -25,6 +51,7 @@ body{
 
 .Menu{
 	display:grid;
+	display: -ms-grid;
 	background-color: transparent;
 	z-index:10;
 	position:absolute;
@@ -48,33 +75,44 @@ body{
 	background-color:grey;
 }
 
+.directions{
+	position:absolute;
+	text-decoration:none;
+	font-size:1vw;
+	font-color: black;
+	height:40vh;
+	width:15vw;
+	margin-top:20vh;
+	user-select: text;
+
+}
+
 #toggle{
 	grid-column: 1 / 1;
+	-ms-grid-column: 1 / 1;
 	border-radius:10%;
 	opacity:.7;
 	z-index: 11;
-	width: 190%;
-	height:6vw;
-	background-color:red;
+	max-width: 100%;
+	background-color:green;
 	vertical-align: middle;
+	cursor: pointer;
 }
 #toggle:hover{
 	opacity:1;
 }
-.on{
-	grid-column: 2 / 2;
-	background-color:green;
+
+.but{
+	grid-column: 1 / 2;
+	-ms-grid-column: 1 / 2;
+	background-color:gray;
 	opacity:.7;
 	width:100%;
-	height:50%;
+	height:100%;
 	border-radius:10%;
+	cursor: pointer;
 }
 
-.off{
-	grid-column: 1 / 2;
-	background-color:red;
-	opacity:.7;
-	width:100%;
-	height:50%;
-	border-radius:10%;
+.but:hover{
+	opacity:1;
 }
