@@ -1,5 +1,5 @@
 # cells
-This project is a Cellullar Automaton using a Boolean Network. 
+This project is a Cellular Automaton using a Boolean Network. 
 You can play with a hosted version at https://brandongioggia.com/cells.html
 
 Boolean networks consist of a bunch of nodes that can either be on or off. In discrete time,
