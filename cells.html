@@ -5,37 +5,72 @@
 
   <title>Cells</title>
 
+  <link href="../Images/BG.png" rel="icon" >
+
   <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
-  <link href="cells.css" rel="stylesheet" type="text/css">
+  <link href="../CSS/cells.css" rel="stylesheet" type="text/css">
 
 
 </head>
 
+
 <body>
-	<div class="Title">Cells</div>
+
+
+  <div class="Banner">
+
+
+
+	<div class="Title1">Cells</div>
+      <a href="index.html">
+    <div class="Title">
+      Brandon Gioggia
+    </div>
+  </a>
+  <div class="directions"><h1><b>Instructions:</b></h1> 
+
+  <p>
+
+  The box at the center of the screen is a grid full of white cells. Click in the box to turn cells <b>on</b> or <b>off</b>. All of the cells start <b>off</b>, and will turn black when they are <b>on</b>.
+
+  <br><br>
+
+  The buttons on the right side of the screen allow you to set rules for the cells to turn themselves <b>on</b> and <b>off</b>. 
+
+  <br><br>
+
+  The number on each button indicates the number of neighbors a cell has that are <b>on</b>. The command at the bottom of each button indicates what the cell will do when it has that many neighbors set to <b>on</b>. You can toggle through these states by clicking. 
+
+  <br><br>
+
+  Press the 'Play' button to have the cells start following your rules. 
+
+  <br><br>
+
+  If you're unsure where to start, try the following combination:
+
+  <br> 
+  0:On, 1:Off, 2:On, 3:On, 4:Off
+
+  <br></p>
+  </div>
 	<div class="Box" id="world"></div>
   <div class = "Menu">
-    <div id="toggle" onclick="toggle()">On/Off</div>
+    <div id="toggle" onclick="toggle()"><br>Play</div>
     <div id="spacer"></div>
-    <div id ="off0" class="off" onclick="updateRules('off0')">Off: 0</div>
-    <div id ="on0" class="on" onclick="updateRules('on0')">On: 0</div>
-    <div id ="off1" class="off" onclick="updateRules('off1')">On: 1</div>
-    <div id ="on1" class="on" onclick="updateRules('on1')">Off: 1</div>
-    <div id ="off2" class="off" onclick="updateRules('off2')">Off: 2</div>
-    <div id ="on2" class="on" onclick="updateRules('on2')">On: 2</div>
-    <div id ="off3" class="off" onclick="updateRules('off3')">Off: 3</div>
-    <div id ="on3" class="on" onclick="updateRules('on3')">On: 3</div>
-    <div id ="off4" class="off" onclick="updateRules('off4')">Off: 4</div>
-    <div id ="on4" class="on" onclick="updateRules('on4')">Off: 4</div>
+    <div id ="but0" class="but" onclick="determineUpdate('but0')"><br>0<br><br>Do Nothing</div>
+    <div id ="but1" class="but" onclick="determineUpdate('but1')"><br>1<br><br>Do Nothing</div>
+    <div id ="but2" class="but" onclick="determineUpdate('but2')"><br>2<br><br>Do Nothing</div>
+    <div id ="but3" class="but" onclick="determineUpdate('but3')"><br>3<br><br>Do Nothing</div>
+    <div id ="but4" class="but" onclick="determineUpdate('but4')"><br>4<br><br>Do Nothing</div>
 
   </div>
   	
 </div>
-  </div>
 
 
 
-    <script src="cells.js"> </script>
+    <script src="../JS/cells.js"> </script>
 
 
 </body>
