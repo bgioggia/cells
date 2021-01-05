@@ -1,4 +1,3 @@
-
 //Variables
 var ColNum = 70;
 var RowNum = 44;
@@ -9,7 +8,8 @@ var WorldState = false;
 var Setup = true;
 
 //color that toggle will be changed to next
-var toggleColor = "green";
+var toggleColor = "red";
+var toggleText = "<br>Pause";
 
 //rules variables
 var state0 = 0;
@@ -155,29 +155,138 @@ function changeStateMirror(i, cell) {
 	console.log("index:" + Cells[i].index);*/
 }
 
+function determineUpdate(button){
+	var but = document.getElementById(button).innerHTML
+	switch(button){
+		case "but0":
+			if(but == "<br>0<br><br>Do Nothing"){
+				document.getElementById(button).innerHTML = "<br>0<br><br>Turn On";
+				document.getElementById(button).style.backgroundColor = "green";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on0')
+			}
+			else if(but == "<br>0<br><br>Turn On"){
+				document.getElementById(button).innerHTML = "<br>0<br><br>Turn Off";
+				document.getElementById(button).style.backgroundColor = "red";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on0')
+				updateRules('off0')
+			}
+			else if(but == "<br>0<br><br>Turn Off"){
+				document.getElementById(button).innerHTML = "<br>0<br><br>Do Nothing";
+				document.getElementById(button).style.backgroundColor = "grey";
+				document.getElementById(button).style.opacity = ".7";
+				updateRules('off0')
+			}
+			break;
+		case "but1":
+			if(but == "<br>1<br><br>Do Nothing"){
+				document.getElementById(button).innerHTML = "<br>1<br><br>Turn On";
+				document.getElementById(button).style.backgroundColor = "green";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on1')
+			}
+			else if(but == "<br>1<br><br>Turn On"){
+				document.getElementById(button).innerHTML = "<br>1<br><br>Turn Off";
+				document.getElementById(button).style.backgroundColor = "red";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on1')
+				updateRules('off1')
+			}
+			else if(but == "<br>1<br><br>Turn Off"){
+				document.getElementById(button).innerHTML = "<br>1<br><br>Do Nothing";
+				document.getElementById(button).style.backgroundColor = "grey";
+				document.getElementById(button).style.opacity = ".7";
+				updateRules('off1')
+			}
+			break;
+		case "but2":
+			if(but == "<br>2<br><br>Do Nothing"){
+				document.getElementById(button).innerHTML = "<br>2<br><br>Turn On";
+				document.getElementById(button).style.backgroundColor = "green";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on2')
+			}
+			else if(but == "<br>2<br><br>Turn On"){
+				document.getElementById(button).innerHTML = "<br>2<br><br>Turn Off";
+				document.getElementById(button).style.backgroundColor = "red";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on2')
+				updateRules('off2')
+			}
+			else if(but == "<br>2<br><br>Turn Off"){
+				document.getElementById(button).innerHTML = "<br>2<br><br>Do Nothing";
+				document.getElementById(button).style.backgroundColor = "grey";
+				document.getElementById(button).style.opacity = ".7";
+				updateRules('off2')
+			}
+			break;
+		case "but3":
+			if(but == "<br>3<br><br>Do Nothing"){
+				document.getElementById(button).innerHTML = "<br>3<br><br>Turn On";
+				document.getElementById(button).style.backgroundColor = "green";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on3')
+			}
+			else if(but == "<br>3<br><br>Turn On"){
+				document.getElementById(button).innerHTML = "<br>3<br><br>Turn Off";
+				document.getElementById(button).style.backgroundColor = "red";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on3')
+				updateRules('off3')
+			}
+			else if(but == "<br>3<br><br>Turn Off"){
+				document.getElementById(button).innerHTML = "<br>3<br><br>Do Nothing";
+				document.getElementById(button).style.backgroundColor = "grey";
+				document.getElementById(button).style.opacity = ".7";
+				updateRules('off3')
+			}
+			break;
+		case "but4":
+			if(but == "<br>4<br><br>Do Nothing"){
+				document.getElementById(button).innerHTML = "<br>4<br><br>Turn On";
+				document.getElementById(button).style.backgroundColor = "green";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on4')
+			}
+			else if(but == "<br>4<br><br>Turn On"){
+				document.getElementById(button).innerHTML = "<br>4<br><br>Turn Off";
+				document.getElementById(button).style.backgroundColor = "red";
+				document.getElementById(button).style.opacity = "1";
+				updateRules('on4')
+				updateRules('off4')
+			}
+			else if(but == "<br>4<br><br>Turn Off"){
+				document.getElementById(button).innerHTML = "<br>4<br><br>Do Nothing";
+				document.getElementById(button).style.backgroundColor = "grey";
+				document.getElementById(button).style.opacity = ".7";
+				updateRules('off4')
+			}
+			break;
+		default:
+			break;
+	}
+}
+
 function updateRules(change) {
 	switch(change){
 		//NO NEIGHBOR CASES
 		case "on0":
 			if(state0 == 0 || state0 == 2){
 				state0 = state0 + 1;
-				document.getElementById("on0").style.opacity = "1";
 			}
 
 			else{
 				state0 = state0 -1;
-				document.getElementById("on0").style.opacity = ".7";
 			}
 			break;
 
 		case "off0":
 			if(state0 == 0 || state0 == 1){
 				state0 = state0 + 2;
-				document.getElementById("off0").style.opacity = "1";
 			}
 			else{
 				state0 = state0 - 2;
-				document.getElementById("off0").style.opacity = ".7";
 			}
 			break;
 
@@ -185,22 +294,18 @@ function updateRules(change) {
 		case "on1":
 			if(state1 == 0 || state1 == 2){
 				state1 = state1 + 1;
-				document.getElementById("on1").style.opacity = "1";
 			}
 			else{
 				state1 = state1 -1;
-				document.getElementById("on1").style.opacity = ".7";
 			}
 			break;
 
 		case "off1":
 			if(state1 == 0 || state1 == 1){
 				state1 = state1 + 2;
-				document.getElementById("off1").style.opacity = "1";
 			}
 			else{
 				state1 = state1 - 2;
-				document.getElementById("off1").style.opacity = ".7";
 			}
 			break;
 
@@ -208,22 +313,18 @@ function updateRules(change) {
 		case "on2":
 			if(state2 == 0 || state0 == 2){
 				state2 = state2 + 1;
-				document.getElementById("on2").style.opacity = "1";
 			}
 			else{
 				state2 = state2 -1;
-				document.getElementById("on2").style.opacity = ".7";
 			}
 			break;
 
 		case "off2":
 			if(state2 == 0 || state2 == 1){
 				state2 = state2 + 2;
-				document.getElementById("off2").style.opacity = "1";
 			}
 			else{
 				state2 = state2 - 2;
-				document.getElementById("off2").style.opacity = ".7";
 			}
 			break;
 
@@ -231,22 +332,18 @@ function updateRules(change) {
 		case "on3":
 			if(state3 == 0 || state3 == 2){
 				state3 = state3 + 1;
-				document.getElementById("on3").style.opacity = "1";
 			}
 			else{
 				state3 = state3 -1;
-				document.getElementById("on3").style.opacity = ".7";
 			}
 			break;
 
 		case "off3":
 			if(state3 == 0 || state3 == 1){
 				state3 = state3 + 2;
-				document.getElementById("off3").style.opacity = "1";
 			}
 			else{
 				state3 = state3 - 2;
-				document.getElementById("off3").style.opacity = ".7";
 			}
 			break;
 
@@ -254,22 +351,18 @@ function updateRules(change) {
 		case "on4":
 			if(state4 == 0 || state4 == 2){
 				state4 = state4 + 1;
-				document.getElementById("on4").style.opacity = "1";
 			}
 			else{
 				state4 = state4 -1;
-				document.getElementById("on4").style.opacity = ".7";
 			}
 			break;
 
 		case "off4":
 			if(state4 == 0 || state4 == 1){
 				state4 = state4 + 2;
-				document.getElementById("off4").style.opacity = "1";
 			}
 			else{
 				state4 = state4 - 2;
-				document.getElementById("off4").style.opacity = ".7";
 			}
 			break;
 
@@ -325,10 +418,17 @@ function update(i){
 function toggle() {
 	WorldState = !WorldState;
 	document.getElementById("toggle").style.backgroundColor = toggleColor;
-	if(toggleColor == "green")
-		toggleColor = "red";
-	else
+	document.getElementById("toggle").innerHTML = toggleText;
+	if(toggleColor == "red") {
 		toggleColor = "green";
+		toggleText = "<br>Play"
+		document.getElementById("toggle").style.opacity = "1";
+	}
+	else {
+		toggleColor = "red";
+		toggleText = "<br>Pause"
+		document.getElementById("toggle").style.opacity = ".7";
+	}
 }
 
 
@@ -358,8 +458,8 @@ function sweep(i) {
 
 //Calls update function on each element of the Cells Array 2 times per second
 setInterval( function(){
-console.log("STATE0: " + state0);
-console.log("STATE1: " + state1)
+//console.log("STATE0: " + state0);
+//console.log("STATE1: " + state1)
 	//Sets up the view based on the screen size
 	if (Setup){
 		Start();
@@ -371,6 +471,7 @@ console.log("STATE1: " + state1)
 		sweep(i);
 	}
 },1000/4);
+
 
 
 
